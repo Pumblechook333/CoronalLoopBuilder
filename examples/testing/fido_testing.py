@@ -2,8 +2,8 @@ from sunpy.net import Fido, attrs as a
 import astropy.units as u
 
 # Time range of data you are looking for
-time = a.Time('2012/07/19 06:38',
-              '2012/07/19 06:41')
+time = a.Time('2013/05/15 03:00',
+              '2013/05/15 05:00')
 
 # Instruments you want data from
 aia = a.Instrument.aia                 # Instrument which produced the image
@@ -25,18 +25,20 @@ phy = a.Physobs('Intensity')            # Physical Observable (What quantity?)
 ext = a.ExtentType('FULLDISK')          # Extent of the observation (how much of the sun)
 
 # Include all of your properties in the Fido.search call
-result = Fido.search(time, aia, cad, phy, wav_131)
-print(result)
+result = Fido.search(time, ste, cad, phy, wav_195)
+table = result.show('Start Time', 'End Time', 'Source')
+
+print(table)
 
 # Select your recorded event from the results list ([0, #number of the row you want])
-sel = result[0, 2]
+sel = result[0, 0]
 print(sel)
-
-# Put more than one selection in this list if you want
-sels = [sel]
-
-# Download each of the search items you have selected
-for sel in sels:
-    download = Fido.fetch(sel, path='./downloaded_events')    # Downloads the selected event found via Fido.search to
-                                                              # the specified path
-    print(download.errors)                                    # Output any errors that might have prevented download
+#
+# # Put more than one selection in this list if you want
+# sels = [sel]
+#
+# # Download each of the search items you have selected
+# for sel in sels:
+#     download = Fido.fetch(sel, path='./downloaded_events/2013-05-15')    # Downloads the selected event found via Fido.search to
+#                                                               # the specified path
+#     print(download.errors)                                    # Output any errors that might have prevented download
