@@ -3,11 +3,12 @@ import pickle
 import matplotlib.pyplot as plt
 import astropy.units as u
 
-year = 2013
+year = 2012
 wav = 171
+stereo = 'A'
 
 maps = []
-mapdirs = ['maps/2013/AIA-{}.pkl'.format(str(wav)), 'maps/2013/STEREOB-{}.pkl'.format(str(wav))]
+mapdirs = [f'maps/{year}/AIA-{str(wav)}.pkl', f'maps/{year}/STEREO{stereo}-{str(wav)}.pkl']
 
 for name in mapdirs:
     with open(name, 'rb') as f:
@@ -27,15 +28,17 @@ for midx, dummy_map in enumerate(maps):
     dummy_map.draw_limb(axes=ax, color='k')
     ax.set_title(ax.get_title(), pad=45)
 
-coronal_loop1 = CoronalLoopBuilder(fig, axs, maps, pkl='loop_params/2013/front_2013.pkl', color='red')
-coronal_loop2 = CoronalLoopBuilder(fig, axs, maps, pkl='loop_params/2013/back_2013.pkl', color='blue')
+coronal_loop1 = CoronalLoopBuilder(fig, axs, maps, pkl=f'loop_params/{year}/front_{year}.pkl', color='red')
+coronal_loop2 = CoronalLoopBuilder(fig, axs, maps, pkl=f'loop_params/{year}/back_{year}.pkl', color='blue')
+# coronal_loop1 = CoronalLoopBuilder(fig, axs, maps, pkl=f'loop_params/{year}/front_{year}_slant.pkl', color='red')
+# coronal_loop2 = CoronalLoopBuilder(fig, axs, maps, pkl=f'loop_params/{year}/back_{year}_slant.pkl', color='blue')
 
-fname = 'clb_{}_2013_adj'.format(str(wav))
-fig.savefig('figs/' + fname + '.jpg', dpi=300, bbox_inches='tight')
+# fname = f'clb_{str(wav)}_{year}_adj'
+# fig.savefig('figs/' + fname + '.jpg', dpi=300, bbox_inches='tight')
 
 plt.show()
 plt.close()
-
-# coronal_loop1.save_params_to_pickle("2013/front_2013.pkl")
-# coronal_loop2.save_params_to_pickle("2013/back_2013.pkl")
+#
+# coronal_loop1.save_params_to_pickle(f"{year}/front_{year}.pkl")
+# coronal_loop2.save_params_to_pickle(f"{year}/back_{year}.pkl")
 

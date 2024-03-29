@@ -28,6 +28,9 @@ def circle_3d(x0, y0, z0, r, theta, phi, t):
 
     # Normal vector
     n = np.array([np.sin(theta) * np.cos(phi), np.sin(theta) * np.sin(phi), np.cos(theta)])
+    #theta=el=90;phi=az=0  |  1 * 1 = 1      ,             1 * 0 = 0      , 0
+    #[1,0,0]
+    #[0-1, 0-1, 0]
 
     # Arbitrary vector (z-axis)
     z = np.array([0, 0, 1])
@@ -165,7 +168,7 @@ def semi_circle_loop(radius, majax, minax, ellipse, height, theta0=0 * u.deg, ph
     loop_length = alpha.value * radius
     print('Loop length:', loop_length)
     # relative to 0,0 in helio_stony
-    #
+
     # Put dummy observer at the earth
     hcc_frame = Heliocentric(observer=SkyCoord(
         lon=phi0, lat=theta0, radius=r_1, frame='heliographic_stonyhurst'))
